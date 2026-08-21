@@ -32,8 +32,8 @@
                 HorizontalOptions="Fill" />
             <Button
                 x:Name="PracticePageBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
+                Text="See Morse Alphabet" 
+                SemanticProperties.Hint="redirects to Morse alphabet"
                 Clicked="OnOpenPracticeClicked"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
