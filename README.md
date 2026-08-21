@@ -48,6 +48,14 @@ Today I did a crash course on MAUI XAML, mainly learning the types of basic layo
 
 Note: after some more effort outside of school time the morse slash spaces and two way translation work well. Now its possible to input text/morse in the top bar and edit the result to retranslate it in reverse, which allowes for fixing mistakes in an existing text.
 
+
+
+https://github.com/user-attachments/assets/b87c489d-e222-4ee6-9a30-efb4bc682cba
+
+
+
+
+
 ## 28.8
 
 Goals 28.08.2026
