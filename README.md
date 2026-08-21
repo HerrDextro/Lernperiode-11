@@ -17,11 +17,11 @@ How is this project different from M335? I cant know yet, since we are not far e
 ## 14.8
 
 Planned features:
-- [ ] As the user I want to be able to view a morse alphabet
-- [ ] As the user I want to be able to translate morse into text and vice versa
+- [x] As the user I want to be able to view a morse alphabet to quickly see what a character is
+- [x] As the user I want to be able to translate morse into text and vice versa to quickly see what a string of morse means, or what a string of text would be in morse
 - [ ] As the user I want to be able to practise decoding morse characters
 - [ ] As the user I want to be able to practise decoding morse words/sentences
-- [ ] As the user I want to be able to use the screen to key morse characters
+- [ ] As the user I want to be able to use the screen to practise keying morse characters
 - [ ] As the user I want to be able to use the screen to key morse words/sentences 
 - [ ] As the user I want to be able to set the WPM speed and save it to customize the practising
 - [ ] As the user I want to have an accessible Q-Code list to understand which is appropriate for the situation
@@ -38,7 +38,16 @@ Also: No code is committed, since at the closing time it did not compile
 ## 21.8
 
 Goals 21.08.26
-- [x] As the user I want to be able to view a morse alphabet
-- [ ] As the user I want to be able to translate morse into text and vice versa
+- [x] As the user I want to be able to view a morse alphabet to quickly see what a character is
+- [x] As the user I want to be able to translate morse into text and vice versa to quickly see what a string of morse means, or what a string of text would be in morse
 
 (No third user story, I wouldnt get it finished)
+
+Today I did a crash course on MAUI XAML, mainly learning the types of basic layout like <VerticalLayout> and <HorizontalLayout> and elements like <label> and <editor>. Then I wrote the boilerplate needed to connect a "backend" class to the UI by binding its properties to elements in the XAML. Once that was done I started writing simple Text to Morse and vice versa methods. I first pass the text into a morse detector that checks if the string consists of only dot dash and space and returns a true if yes. Then according to that bool the correct translation method is called and given the input string. The code works nicely, except that I didnt know what official good practise was for written morse delimiting, which turns out to be a / in between words. The code doesnt implement this yet though.
+
+## 28.8
+
+Goals 28.08.2026
+- [ ] As the user I want to be able to use the screen to practise keying morse characters
+- [ ] As the user I want to be able to use the screen to key morse words/sentences 
+- [ ] As the user I want to be able to set the WPM speed and save it to customize the practising
