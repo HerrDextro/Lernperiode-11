@@ -73,7 +73,7 @@ namespace MorseMate_Mobile
             char[] inputArray = lowerInput.ToArray();
 
             //check if the input contains only dots, dashes, and spaces (Morse code)
-            bool isMorseCode = inputArray.All(C => C == '.' || C == '-' || C == ' ');
+            bool isMorseCode = inputArray.All(C => C == '.' || C == '-' || C == ' ' || C == '/');
 
             return isMorseCode;
         }
@@ -84,24 +84,18 @@ namespace MorseMate_Mobile
         {
             StringBuilder morseBuilder = new StringBuilder();
 
-            string[] morseWords = morseInput.Split('/'); //now looks lîke --. and  .. -- (with the whitespaces still around them
-            string[] morseChars = [];
-            foreach (string word in morseWords)
+            string[] morseChars = morseInput.Split(' ');
+            foreach (string morseChar in morseChars)
             {
-                morseChars = word.Split(' ');
-                morseBuilder.Append(" "); //add a space between words
-
-                foreach (string morseChar in morseChars)
+                if (_morseCodeMap.ContainsValue(morseChar))
                 {
-                    if (_morseCodeMap.ContainsValue(morseChar))
-                    {
-                        morseBuilder.Append(_morseCodeMap.FirstOrDefault(x => x.Value == morseChar).Key);
-                    }
+                    morseBuilder.Append(_morseCodeMap.FirstOrDefault(x => x.Value == morseChar).Key);
+                }
+                else if(morseChar == "/")
+                {
+                    morseBuilder.Append(" "); // Add a space for word separation
                 }
             }
-
-            
-
             return morseBuilder.ToString().Trim();
         }
         public string TranslateTextToMorse(string textInput)
@@ -119,7 +113,7 @@ namespace MorseMate_Mobile
                 }
                 else if (c == ' ')
                 {
-                    morseBuilder.Append("  "); // Add extra space for word separation
+                    morseBuilder.Append('/'); // Add slash for word separation
                 }
             }
             return morseBuilder.ToString().Trim();
