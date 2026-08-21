@@ -7,8 +7,9 @@
 The Idea: A Morse learning app that you can practise individual letters with, and also transmit or decode signals.
 
 Technical requirements:
--Storage: user preferences API und FS API
--Outputs: Audio API, haptic feedback, flashlight
+- Storage: user preferences API und FS API
+- Outputs: Audio API, haptic feedback, flashlight
+
 The challenge will lie in the correct use of these APIs and compatibility with different phones.
 Non technical aspects: I want to try and design a highly ergonomic app that would never frustrate a user.
 
@@ -44,6 +45,8 @@ Goals 21.08.26
 (No third user story, I wouldnt get it finished)
 
 Today I did a crash course on MAUI XAML, mainly learning the types of basic layout like <VerticalLayout> and <HorizontalLayout> and elements like <label> and <editor>. Then I wrote the boilerplate needed to connect a "backend" class to the UI by binding its properties to elements in the XAML. Once that was done I started writing simple Text to Morse and vice versa methods. I first pass the text into a morse detector that checks if the string consists of only dot dash and space and returns a true if yes. Then according to that bool the correct translation method is called and given the input string. The code works nicely, except that I didnt know what official good practise was for written morse delimiting, which turns out to be a / in between words. The code doesnt implement this yet though.
+
+Note: after some more effort outside of school time the morse slash spaces and two way translation work well. Now its possible to input text/morse in the top bar and edit the result to retranslate it in reverse, which allowes for fixing mistakes in an existing text.
 
 ## 28.8
 
