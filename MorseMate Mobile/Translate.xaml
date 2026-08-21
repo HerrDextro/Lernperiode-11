@@ -18,9 +18,17 @@
             Text="{Binding TextToTranslate, Mode=TwoWay}"
             Placeholder="Type long notes here..."
             HeightRequest="100" />
-        
+
+        <Editor
+             Text="{Binding TranslationOutput}, Mode=TwoWay}"
+             Placeholder="Translated text:"
+             HeightRequest="100" />
+
+        <!--
         <Label Text="Translated text:" />
         <Label Text="{Binding TranslationOutput}" />
+        
+        -->
 
     </VerticalStackLayout>
 </ContentPage>

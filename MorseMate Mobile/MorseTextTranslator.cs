@@ -31,6 +31,8 @@ namespace MorseMate_Mobile
                 // Add more mappings for punctuation and special characters if needed (or be cool and make the binary tree thing)
             };
 
+        private TranslationDirection _translationDirection;
+        private bool _supressRecursion = false;
         private string _textToTranslate = string.Empty;
         private string _translationOutput = string.Empty;
         public string TextToTranslate
@@ -40,10 +42,11 @@ namespace MorseMate_Mobile
             {
                 if (_textToTranslate != value)
                 {
-                    _textToTranslate = value;
+                    _textToTranslate = value.ToUpper();
                     OnPropertyChanged();
 
-                    if (DetectMorse(_textToTranslate))
+                    DetectMorse(_textToTranslate);
+                    if (_translationDirection == TranslationDirection.MorseToText)
                     {
                         TranslationOutput = TranslateMorseToText(_textToTranslate);
                     }
@@ -59,29 +62,54 @@ namespace MorseMate_Mobile
             get => _translationOutput;
             set
             {
-                if (_translationOutput != value)
+                if (_translationOutput != value.ToUpper())
                 {
-                    _translationOutput = value;
+                    _translationOutput = value.ToUpper();
                     OnPropertyChanged();
+                    DetectMorse(TranslationOutput); //update this to also adhere to non recursion flag
+                    RewriteInputAfterOutputChange(); //or keep flag in if statement and put these two in, but thats even less safe
+                    _supressRecursion = false;
                 }
             }
         }
 
-        public bool DetectMorse(string input)
+        public void DetectMorse(string input)
         {
             string lowerInput = input.ToLower();
             char[] inputArray = lowerInput.ToArray();
 
             //check if the input contains only dots, dashes, and spaces (Morse code)
             bool isMorseCode = inputArray.All(C => C == '.' || C == '-' || C == ' ' || C == '/');
+            if (isMorseCode)
+            {
+                _translationDirection = TranslationDirection.MorseToText;
 
-            return isMorseCode;
+            }
+            else
+            {
+                _translationDirection = TranslationDirection.TextToMorse;
+            }
+        }
+
+        public void RewriteInputAfterOutputChange() //works but editors text does not update
+        {
+            if (_translationDirection == TranslationDirection.MorseToText && !_supressRecursion)
+            {
+                _textToTranslate = TranslateMorseToText(_translationOutput);
+                OnPropertyChanged(nameof(TextToTranslate));
+            }
+            else if (_translationDirection == TranslationDirection.TextToMorse && !_supressRecursion)
+            {
+                _textToTranslate = TranslateTextToMorse(_translationOutput); //doesnt trigger property change for some reason
+                OnPropertyChanged(nameof(TextToTranslate));    
+            }
         }
 
         //redefining the translation rules: morse words will now be separated by a / and regular text spaces will appear as / between morse words
 
         public string TranslateMorseToText(string morseInput) //input looks like --. / .. -- //spaces not yet functioning
         {
+            _supressRecursion = true;
             StringBuilder morseBuilder = new StringBuilder();
 
             string[] morseChars = morseInput.Split(' ');
@@ -96,10 +124,11 @@ namespace MorseMate_Mobile
                     morseBuilder.Append(" "); // Add a space for word separation
                 }
             }
-            return morseBuilder.ToString().Trim();
+            return morseBuilder.ToString();
         }
         public string TranslateTextToMorse(string textInput)
         {
+            _supressRecursion = true;
             // Convert the text to uppercase for consistency
             textInput = textInput.ToUpper();
             // Create a dictionary to map characters to Morse code
@@ -113,10 +142,16 @@ namespace MorseMate_Mobile
                 }
                 else if (c == ' ')
                 {
-                    morseBuilder.Append('/'); // Add slash for word separation
+                    morseBuilder.Append(" / "); // Add slash for word separation
                 }
             }
             return morseBuilder.ToString().Trim();
         }
+    }
+
+    enum TranslationDirection
+    {
+        TextToMorse,
+        MorseToText
     }
 }
