@@ -26,6 +26,15 @@ Planned features:
 - [ ] As the user I want to be able to set the WPM speed and save it to customize the practising
 - [ ] As the user I want to have an accessible Q-Code list to understand which is appropriate for the situation
 
+Goals 14.08.2026
+- [x] Create a .NET MAUI project
+- [x] Research MAUI and learn how to bind buttons and add pages
+- [x] Create UI layout drawing
+
 Today I planned out the app and all the features I want. I decided to keep most of the features optional (as in: not dependent on each other) so I can get the essentials working within the 5 week timeframe. I installed the MAUI workload onto my VS and started a project, with which I played around a bit trying to understand how it works and what were dealing with, this means just changing some buttons, adding new pages, trying out paddings and layouts. Because my phone broke, I will not be adding a photo of the sketch yet.
 Also: No code is committed, since at the closing time it did not compile
 
+Goals 21.08.26
+- [ ] As the user I want to be able to view a morse alphabet
+- [ ] As the user I want to be able to translate morse into text and vice versa
+(No third user story, I wouldnt get it finished)
