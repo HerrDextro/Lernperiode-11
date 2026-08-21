@@ -50,7 +50,9 @@ Note: after some more effort outside of school time the morse slash spaces and t
 
 
 
-https://github.com/user-attachments/assets/b87c489d-e222-4ee6-9a30-efb4bc682cba
+
+https://github.com/user-attachments/assets/a3120460-2d58-4129-93c3-eaba9d37d6ce
+
 
 
 
