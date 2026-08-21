@@ -40,4 +40,5 @@ Also: No code is committed, since at the closing time it did not compile
 Goals 21.08.26
 - [ ] As the user I want to be able to view a morse alphabet
 - [ ] As the user I want to be able to translate morse into text and vice versa
+
 (No third user story, I wouldnt get it finished)
