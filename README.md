@@ -7,8 +7,9 @@
 The Idea: A Morse learning app that you can practise individual letters with, and also transmit or decode signals.
 
 Technical requirements:
--Storage: user preferences API und FS API
--Outputs: Audio API, haptic feedback, flashlight
+- Storage: user preferences API und FS API
+- Outputs: Audio API, haptic feedback, flashlight
+
 The challenge will lie in the correct use of these APIs and compatibility with different phones.
 Non technical aspects: I want to try and design a highly ergonomic app that would never frustrate a user.
 
@@ -45,9 +46,21 @@ Goals 21.08.26
 
 Today I did a crash course on MAUI XAML, mainly learning the types of basic layout like <VerticalLayout> and <HorizontalLayout> and elements like <label> and <editor>. Then I wrote the boilerplate needed to connect a "backend" class to the UI by binding its properties to elements in the XAML. Once that was done I started writing simple Text to Morse and vice versa methods. I first pass the text into a morse detector that checks if the string consists of only dot dash and space and returns a true if yes. Then according to that bool the correct translation method is called and given the input string. The code works nicely, except that I didnt know what official good practise was for written morse delimiting, which turns out to be a / in between words. The code doesnt implement this yet though.
 
+Note: after some more effort outside of school time the morse slash spaces and two way translation work well. Now its possible to input text/morse in the top bar and edit the result to retranslate it in reverse, which allowes for fixing mistakes in an existing text.
+
+
+
+https://github.com/user-attachments/assets/345c945f-7664-4de3-8e28-6a7d93b18341
+
+
+
+
+
 ## 28.8
 
 Goals 28.08.2026
-- [ ] As the user I want to be able to use the screen to practise keying morse characters
-- [ ] As the user I want to be able to use the screen to key morse words/sentences 
+- [x] As the user I want to be able to use the screen to practise keying morse characters
+- [x] As the user I want to be able to use the screen to key morse words/sentences 
 - [ ] As the user I want to be able to set the WPM speed and save it to customize the practising
+
+Today I added a page with 2 text outputs and a button, which allows you to practise keying morse and getting the timings right. For this I created a class containing logic for determining what press timings are what morse characters, and also calculating WPM so the user knows exactly what their WPM is set to. I had to do some research as to how the timings work exactly and also how to calculate the WPM, where I settled on the "PARIS check" which is just using whatever morse unit time is set to key the word "paris" with a trailing space. It took me alot of time to figure out how exactly to get working key pressed and released events in MAUI, since there were several ways and the NuGet I needed for the previous method I was using had alot of issues. As of right now, the key functionality does work but is not very smooth at all, and the characters dont really behave leading me to believe there must be a bug with the timing logic or the timing to morse method. I also did implement the wpm functionality but I didnt add any settings for that yet on the settings page.
