@@ -22,5 +22,10 @@
         {
             await Shell.Current.GoToAsync(nameof(Translate));
         }
+
+        private async void OnOpenPractiseBtnClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(Practise));
+        }
     }
 }

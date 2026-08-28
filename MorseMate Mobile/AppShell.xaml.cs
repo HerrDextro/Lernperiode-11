@@ -9,6 +9,7 @@
             //registering route of my new page
             Routing.RegisterRoute(nameof(Settings), typeof(Settings));
             Routing.RegisterRoute(nameof(Translate), typeof(Translate));
+            Routing.RegisterRoute(nameof(Practise), typeof(Practise));
         }
     }
 }

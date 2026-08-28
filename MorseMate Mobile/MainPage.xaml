@@ -36,6 +36,11 @@
                     Text="Translate" 
                     Clicked="OnOpenTranslateBtnClicked"
                     HorizontalOptions="Fill" />
+                <Button
+                    x:Name="PractisePageBtn"
+                    Text="Practise" 
+                    Clicked="OnOpenPractiseBtnClicked"
+                    HorizontalOptions="Fill" />
 
 
             </HorizontalStackLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MorseMate_Mobile.Practise"
+             Title="Practise">
+
+    <VerticalStackLayout>
+        <Label Text="{Binding PractiseTextOutput, TargetNullValue='Press the morse key to start!'}" /> <!--somehow both of these dont update, but their properties do.-->
+        <Label Text="{Binding PractiseMorseOutput, TargetNullValue='Interpreted Morse will appear here'}" />
+
+        <Button Text="Press and hold HERE" Pressed="OnBtnDown" Released="OnBtnUp" Clicked="OnButtonClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>

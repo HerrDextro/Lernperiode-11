@@ -20,7 +20,7 @@
             HeightRequest="100" />
 
         <Editor
-             Text="{Binding TranslationOutput}, Mode=TwoWay}"
+             Text="{Binding TranslationOutput, Mode=TwoWay}"
              Placeholder="Translated text:"
              HeightRequest="100" />
 

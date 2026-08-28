@@ -66,17 +66,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="15.0.1" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.100" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.11" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Practise.xaml.cs">
+	    <DependentUpon>Practise.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Settings.xaml.cs">
 	    <DependentUpon>Settings.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Practise.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Settings.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

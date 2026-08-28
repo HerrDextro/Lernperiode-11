@@ -57,6 +57,7 @@ namespace MorseMate_Mobile
                 }
             }
         }
+
         public string TranslationOutput
         {
             get => _translationOutput;
