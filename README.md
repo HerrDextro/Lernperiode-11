@@ -94,7 +94,7 @@ Today I started working on the learning (decoding) features for morse. First I h
 }
 ```
 The two main learning methods, "Opposed" and "Koch" are the ones im going to use, I will later add a toggle to choose where it recommends the Koch method, however for now ill use the opposed method since its how I learned. 
-
+Note for Colic: To do things properly I really should take some more time, and will therefore not commit all of todays code yet
 
 
 
