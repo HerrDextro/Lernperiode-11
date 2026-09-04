@@ -13,5 +13,36 @@
         <Button Text="Press and hold HERE" Pressed="OnBtnDown" Released="OnBtnUp"/>
         <!--Clicked="OnButtonClicked" for testing-->
 
+        <Label 
+            Text="Choose Morse Unit Time (ms)"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Editor
+            x:Name="UnitTimeEditor"
+            Text="{Binding UnitTimeMs, Mode=TwoWay}"
+            Keyboard="Numeric"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label
+            Text="Expected WPM based on the word PARIS"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label
+            Text="{Binding ExpectedWPM, TargetNullValue=''}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label
+            Text="Set Audio Tone (Hz)"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Editor
+            x:Name="AudioToneEditor"
+            Text="{Binding UserFrequency, Mode=TwoWay}"
+            Keyboard="Numeric"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
     </VerticalStackLayout>
 </ContentPage>

@@ -21,9 +21,9 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         BindingContext = this;
         InitAudioPlayer();
         Task.Run(IdleTimerLoop);
+        settings = new Settings();//this cannot possibly be correct
     }
-
-    protected void OnTextChanged([CallerMemberName] string? propertyName = null)
+    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -36,8 +36,8 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         _audioPlayer = AudioManager.Current.CreatePlayer(audioStream);
         _audioPlayer.Loop = true; // Set infinite looping
     }
+    Settings settings;
     private IAudioPlayer? _audioPlayer;
-    private double _userFrequency = 600.0; // User setting in Hz
     public event PropertyChangedEventHandler? PropertyChanged;
     MorseTextTranslator translator;
     Stopwatch SpaceStopwatch = new();
@@ -46,9 +46,6 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
     private bool wordSpaceAdded = false;
     private bool addWordSpace = false;
     private bool rmdPlaceHolder = false;
-    private static int UnitTimeMs = 130;
-    private int LetterSpaceMs = UnitTimeMs * 3; // 390ms
-    private int WordSpaceMs = UnitTimeMs * 7;   // 910ms
     private TimeRecordState _recordState = TimeRecordState.Empty;
     public TimeRecordState RecordState
     {
@@ -72,8 +69,9 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
             if (_practiseTextOutput != value) //does this work with the default null placeholder defined in the XAML?
             {
                 _practiseTextOutput = value;
-                OnTextChanged();
-              
+                //OnTextChanged();
+                OnPropertyChanged();
+
             }
         }
     }
@@ -85,9 +83,42 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
             if (_practiseMorseOutput != value)
             {
                 _practiseMorseOutput = value;
-                OnTextChanged();
+                //OnTextChanged();
+                OnPropertyChanged();
                 PractiseTextOutput = translator.TranslateMorseToText(PractiseMorseOutput);
             }
+        }
+    }
+    private int _userFrequency = 607; // Default frequency in Hz
+    private static readonly int _unitTimeMs = 130; // Default unit time in milliseconds
+
+    public int UnitTimeMs
+    {
+        get => Preferences.Get(nameof(UnitTimeMs), 130); //the helly are preferences, I Guess the androi way of storing smt
+        set
+        {
+            Preferences.Set(nameof(UnitTimeMs), value);
+            OnPropertyChanged();
+        }
+    }
+    private int LetterSpaceMs = _unitTimeMs * 3; // 390ms
+    private int WordSpaceMs = _unitTimeMs * 7;   // 910ms
+    public int UserFrequency
+    {
+        get => _userFrequency;
+        set
+        {
+            _userFrequency = value;
+            OnPropertyChanged();
+            InitAudioPlayer();
+        }
+    }
+    public int ExpectedWPM
+    {
+        get => DoParisCheck();
+        set
+        {
+            //no thing
         }
     }
 
@@ -115,7 +146,6 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         letterSpaceAdded = false;
         wordSpaceAdded = false;
 
-        // Start tone
         if (_audioPlayer != null && !_audioPlayer.IsPlaying)
         {
             _audioPlayer.Play();
@@ -134,12 +164,23 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         KeyStopWatch.Stop();
         RecordState = TimeRecordState.RecordingInterKeySpace;
         SpaceStopwatch.Restart();
-        // Stop tone instantly
+
         if (_audioPlayer != null && _audioPlayer.IsPlaying)
         {
             _audioPlayer.Pause();
         }
 
+    }
+    internal int DoParisCheck()
+    {
+        //paris would be .--. .- .-. .. ...
+        //so thats 10 dots, 4 dashes, 9 units of space between symbols, 4x3 units of spaces between letters, plus space on trailing end is 7 units
+        int totalUnits = 10 + (4 * 3) + 9 + (4 * 3) + 7;
+        int totalMorseMs = totalUnits * UnitTimeMs;
+        int MsInMin = 60 * 1000;
+        int wpm = MsInMin / totalMorseMs;
+
+        return wpm; //test using unit time of 130ms should return 9wpm
     }
 
     public async Task IdleTimerLoop()
