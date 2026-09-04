@@ -8,9 +8,10 @@
 
     <VerticalStackLayout>
         <Label Text="{Binding PractiseTextOutput, TargetNullValue='Press the morse key to start!'}" /> <!--somehow both of these dont update, but their properties do.-->
-        <Label Text="{Binding PractiseMorseOutput, TargetNullValue='Interpreted Morse will appear here'}" />
+        <Editor Text="{Binding PractiseMorseOutput, TargetNullValue='Interpreted Morse will appear here'}" />
 
-        <Button Text="Press and hold HERE" Pressed="OnBtnDown" Released="OnBtnUp" Clicked="OnButtonClicked" />
+        <Button Text="Press and hold HERE" Pressed="OnBtnDown" Released="OnBtnUp"/>
+        <!--Clicked="OnButtonClicked" for testing-->
 
     </VerticalStackLayout>
 </ContentPage>

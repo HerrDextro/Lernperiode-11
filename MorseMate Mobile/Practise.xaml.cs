@@ -4,25 +4,53 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace MorseMate_Mobile;
+public enum TimeRecordState
+{
+    RecordingKeyPress,
+    RecordingInterKeySpace,
+    Empty
+}
 
 public partial class Practise : ContentPage, INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
     public Practise()
     {
         InitializeComponent();
-        keyLogic = new KeyLogic();
         translator = new MorseTextTranslator();
-        stopwatch = new Stopwatch();
         BindingContext = this;
+        Task.Run(IdleTimerLoop);
+    }
+
+    protected void OnTextChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
+    MorseTextTranslator translator;
+    Stopwatch SpaceStopwatch = new();
+    Stopwatch KeyStopWatch = new();
+    private bool letterSpaceAdded = false;
+    private bool wordSpaceAdded = false;
+    private bool addWordSpace = false;
+    private bool rmdPlaceHolder = false;
+    private static int UnitTimeMs = 130;
+    private int LetterSpaceMs = UnitTimeMs * 3; // 390ms
+    private int WordSpaceMs = UnitTimeMs * 7;   // 910ms
+    private TimeRecordState _recordState = TimeRecordState.Empty;
+    public TimeRecordState RecordState
+    {
+        get => _recordState;
+        set
+        {
+            if (_recordState != value)
+            {
+                _recordState = value;
+                //OnStateChanged();
+            }
+        }
     }
     private string _practiseTextOutput;
     private string _practiseMorseOutput;
-
     public string PractiseTextOutput
     {
         get => _practiseTextOutput;
@@ -31,7 +59,8 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
             if (_practiseTextOutput != value) //does this work with the default null placeholder defined in the XAML?
             {
                 _practiseTextOutput = value;
-                OnPropertyChanged();
+                OnTextChanged();
+              
             }
         }
     }
@@ -43,62 +72,76 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
             if (_practiseMorseOutput != value)
             {
                 _practiseMorseOutput = value;
-                OnPropertyChanged();
+                OnTextChanged();
+                PractiseTextOutput = translator.TranslateMorseToText(PractiseMorseOutput);
             }
         }
     }
 
-    KeyLogic keyLogic;
-    MorseTextTranslator translator;
-    Stopwatch stopwatch;
-    private int pressedTimeInMs = 0;
-    private KeyLogic.MorseCharacterType morseCharacterType;
-
-    private async void OnBtnDown(object sender, EventArgs e)
+    private async void OnBtnDown(object sender, EventArgs e) 
     {
-        //keyLogic.GetMorseKeyTime();
-        Debug.WriteLine($"Pressed key");
-        stopwatch.Reset();
-        stopwatch.Start();
+        SpaceStopwatch.Stop();
+        RecordState = TimeRecordState.RecordingKeyPress;
+        if (rmdPlaceHolder == false)
+        {
+            PractiseMorseOutput = "";
+            rmdPlaceHolder = true;
+        }
+        if (PractiseMorseOutput.Length == 0) //what is this && PractiseMorseOutput[^1] == ' '
+        {
+            addWordSpace = false;
+        }
+        if (addWordSpace && PractiseMorseOutput.Length > 0) //avoids a / in empty textbox after prev. text manual delete
+        {
+            PractiseMorseOutput += " / ";
+            addWordSpace = false;
+        }
+        PractiseMorseOutput += ".";
+        KeyStopWatch.Restart();
+
+        letterSpaceAdded = false;
+        wordSpaceAdded = false;
+
+        await Task.Delay(UnitTimeMs);
+
+        if (RecordState == TimeRecordState.RecordingKeyPress && PractiseMorseOutput.Length > 0)
+        {
+            PractiseMorseOutput = PractiseMorseOutput.Remove(PractiseMorseOutput.Length - 1) + "-";
+        }
     }
 
     private async void OnBtnUp(object sender, EventArgs e)
     {
-        //keyLogic.GetMorseKeyTime();
-        Debug.WriteLine($"Released key");
-        stopwatch.Stop();
-        TimeSpan elapsedTime = stopwatch.Elapsed;
-        pressedTimeInMs = (int)elapsedTime.TotalMilliseconds;
-        stopwatch.Reset();
+        KeyStopWatch.Stop();
+        RecordState = TimeRecordState.RecordingInterKeySpace;
+        SpaceStopwatch.Restart();
+
     }
 
-    private async void OnButtonClicked(object sender, EventArgs e)
+    public async Task IdleTimerLoop()
     {
-        Debug.WriteLine($"Button clicked");
-        //await DisplayAlert("Alert", "You clicked the button!", "OK");
-        morseCharacterType = keyLogic.GetMorseCharacterType(pressedTimeInMs);
-        WriteOutputToUI(morseCharacterType);
-    }
+        while (true)
+        {
+            await Task.Delay(10);
+            
+            if (RecordState == TimeRecordState.RecordingInterKeySpace)
+            {
+                long elapsed = SpaceStopwatch.ElapsedMilliseconds;
 
-    private void WriteOutputToUI(KeyLogic.MorseCharacterType characterType)
-    {
-        if (characterType == KeyLogic.MorseCharacterType.Dot)
-        {
-            PractiseMorseOutput += ".";
-        }
-        else if (characterType == KeyLogic.MorseCharacterType.Dash)
-        {
-            PractiseMorseOutput += "-";
-        }
-        else if (characterType == KeyLogic.MorseCharacterType.Invalid)
-        {
-            PractiseMorseOutput += "Invalid input";
-        }
-        else if (characterType == KeyLogic.MorseCharacterType.Space)
-        {
-            PractiseMorseOutput += " / ";
-        }
+                if (elapsed >= LetterSpaceMs && elapsed < WordSpaceMs && !letterSpaceAdded)
+                {
+                    PractiseMorseOutput += " ";
+                    letterSpaceAdded = true;
+                }
+                else if (elapsed >= WordSpaceMs && !wordSpaceAdded) //never ever triggers somehow
+                {
+                    addWordSpace = true;
+                    wordSpaceAdded = true;
+                    SpaceStopwatch.Stop();
+                    RecordState = TimeRecordState.Empty;
+                }
 
-        PractiseTextOutput = translator.TranslateMorseToText(PractiseMorseOutput);
+            }
+        }
     }
 }
