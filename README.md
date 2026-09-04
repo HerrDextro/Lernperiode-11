@@ -72,7 +72,13 @@ I fixed it by adding an async timer for the space timings, and made some small f
 ## Goals 04.09
 
 Goals 04.09
-- [ ] As the user I want to have an auditory feedback when keying Morse so that I can learn to decode by sound
+- [x] As the user I want to have an auditory feedback when keying Morse so that I can learn to decode by sound
 - [ ] As the user I want to be able to set the WPM speed and save it to customize the practising
 - [ ] As the user I want to be able to practise decoding morse characters
 - [ ] As the user I want to be able to practise decoding morse words/sentences
+
+Placeholder Text for day completion
+
+
+
+
