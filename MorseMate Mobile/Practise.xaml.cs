@@ -1,3 +1,4 @@
+using Plugin.Maui.Audio;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,7 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         InitializeComponent();
         translator = new MorseTextTranslator();
         BindingContext = this;
+        InitAudioPlayer();
         Task.Run(IdleTimerLoop);
     }
 
@@ -25,6 +27,17 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    private void InitAudioPlayer()
+    {
+        // 1. Generate 1-second sine wave stream at user's desired Hz
+        var audioStream = AudioGenerator.GenerateSineWaveStream(_userFrequency, durationMs: 1000);
+
+        // 2. Load into MAUI Audio Player
+        _audioPlayer = AudioManager.Current.CreatePlayer(audioStream);
+        _audioPlayer.Loop = true; // Set infinite looping
+    }
+    private IAudioPlayer? _audioPlayer;
+    private double _userFrequency = 600.0; // User setting in Hz
     public event PropertyChangedEventHandler? PropertyChanged;
     MorseTextTranslator translator;
     Stopwatch SpaceStopwatch = new();
@@ -102,6 +115,12 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         letterSpaceAdded = false;
         wordSpaceAdded = false;
 
+        // Start tone
+        if (_audioPlayer != null && !_audioPlayer.IsPlaying)
+        {
+            _audioPlayer.Play();
+        }
+
         await Task.Delay(UnitTimeMs);
 
         if (RecordState == TimeRecordState.RecordingKeyPress && PractiseMorseOutput.Length > 0)
@@ -115,6 +134,11 @@ public partial class Practise : ContentPage, INotifyPropertyChanged
         KeyStopWatch.Stop();
         RecordState = TimeRecordState.RecordingInterKeySpace;
         SpaceStopwatch.Restart();
+        // Stop tone instantly
+        if (_audioPlayer != null && _audioPlayer.IsPlaying)
+        {
+            _audioPlayer.Pause();
+        }
 
     }
 
