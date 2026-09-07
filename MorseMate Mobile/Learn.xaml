@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MorseMate_Mobile.Learn"
+             Title="Learn">
+    <VerticalStackLayout>
+        
+        <Label
+            x:Name="LearnPageTitle"
+            Text="{Binding LevelTitle}"
+            SemanticProperties.HeadingLevel="Level1" />
+
+        <Border 
+            x:Name="BlinkingBox"
+            WidthRequest="150"
+            HeightRequest="150"
+            BackgroundColor="{Binding BlinkBoxHex}" 
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+        <!--hope the bg color accepts hex codes LOL-->
+
+        <Label
+            x:Name="MorseLabel"
+            Text="{Binding MorseToLearn}"
+            IsVisible="False"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <Label
+            x:Name="CharLabel"
+            Text="{Binding CharToLearn}"
+            IsVisible="False"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+
+        <Button
+            x:Name="PlayBtn"
+            Text="Click to Play Audio" 
+            Clicked="OnPlayAudioBtnClicked"
+            HorizontalOptions="Fill" />
+        
+        <Button
+            x:Name="HintBtn"
+            Text="Show Hints"
+            Clicked="OnShowHintsBtnClicked"
+            HorizontalOptions="Fill" /> <!--Shows hints in MorseLabel and CharLabel-->
+
+
+
+
+
+    </VerticalStackLayout>
+</ContentPage>
