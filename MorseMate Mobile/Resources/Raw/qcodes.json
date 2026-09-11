@@ -1,0 +1,72 @@
+[
+  {
+    "Code": "QRG",
+    "Question": "Will you tell me my exact frequency?",
+    "Answer": "Your exact frequency is [frequency] kHz."
+  },
+  {
+    "Code": "QRL",
+    "Question": "Is this frequency in use?",
+    "Answer": "The frequency is in use. Please do not interfere."
+  },
+  {
+    "Code": "QRM",
+    "Question": "Is my transmission being interfered with?",
+    "Answer": "Your transmission is being interfered with (man-made noise)."
+  },
+  {
+    "Code": "QRN",
+    "Question": "Are you troubled by static?",
+    "Answer": "I am troubled by static (atmospheric noise)."
+  },
+  {
+    "Code": "QRO",
+    "Question": "Shall I increase transmitter power?",
+    "Answer": "Increase power."
+  },
+  {
+    "Code": "QRP",
+    "Question": "Shall I decrease transmitter power?",
+    "Answer": "Decrease power (or: operating low power under 5 watts)."
+  },
+  {
+    "Code": "QRQ",
+    "Question": "Shall I send faster?",
+    "Answer": "Send faster."
+  },
+  {
+    "Code": "QRS",
+    "Question": "Shall I send slower?",
+    "Answer": "Send slower."
+  },
+  {
+    "Code": "QRT",
+    "Question": "Shall I stop sending?",
+    "Answer": "Stop sending / Closing station."
+  },
+  {
+    "Code": "QRZ",
+    "Question": "Who is calling me?",
+    "Answer": "You are being called by [callsign]."
+  },
+  {
+    "Code": "QSB",
+    "Question": "Are my signals fading?",
+    "Answer": "Your signals are fading."
+  },
+  {
+    "Code": "QSL",
+    "Question": "Can you acknowledge receipt?",
+    "Answer": "I acknowledge receipt of your message."
+  },
+  {
+    "Code": "QSO",
+    "Question": "Can you communicate directly?",
+    "Answer": "I can communicate directly / Contact established."
+  },
+  {
+    "Code": "QTH",
+    "Question": "What is your location?",
+    "Answer": "My location is [location]."
+  }
+]

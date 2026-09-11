@@ -41,6 +41,11 @@
                     Text="Practise" 
                     Clicked="OnOpenPractiseBtnClicked"
                     HorizontalOptions="Fill" />
+                <Button
+                    x:Name="LearnPageBtn"
+                    Text="Learn" 
+                    Clicked="OnOpenLearnBtnClicked"
+                    HorizontalOptions="Fill" />
 
 
             </HorizontalStackLayout>

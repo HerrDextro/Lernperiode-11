@@ -27,5 +27,9 @@
         {
             await Shell.Current.GoToAsync(nameof(Practise));
         }
+        private async void OnOpenLearnBtnClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(Learn));
+        }
     }
 }

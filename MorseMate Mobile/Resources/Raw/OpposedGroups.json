@@ -1,0 +1,286 @@
+﻿[
+  {
+    "LevelNumber": 1,
+    "Title": "Opposed Pair: E & T",
+    "Description": "Learn the two fundamental Morse elements: a single dot and a single dash.",
+    "Characters": {
+      "E": ".",
+      "T": "-"
+    }
+  },
+  {
+    "LevelNumber": 2,
+    "Title": "Opposed Pair: I & M",
+    "Description": "Learn double-dot and double-dash characters.",
+    "Characters": {
+      "I": "..",
+      "M": "--"
+    }
+  },
+  {
+    "LevelNumber": 3,
+    "Title": "Opposed Pair: A & N",
+    "Description": "Learn the two possible arrangements of one dot and one dash.",
+    "Characters": {
+      "A": ".-",
+      "N": "-."
+    }
+  },
+  {
+    "LevelNumber": 4,
+    "Title": "Opposed Pair: R & K",
+    "Description": "Learn contrasting three-element patterns built from alternating dots and dashes.",
+    "Characters": {
+      "R": ".-.",
+      "K": "-.-"
+    }
+  },
+  {
+    "LevelNumber": 5,
+    "Title": "Opposed Pair: S & O",
+    "Description": "Learn the pure three-dot and three-dash characters.",
+    "Characters": {
+      "S": "...",
+      "O": "---"
+    }
+  },
+  {
+    "LevelNumber": 6,
+    "Title": "Contrast Pair: U & D",
+    "Description": "Learn the three-element characters formed by extending I and N with an opposite ending.",
+    "Characters": {
+      "U": "..-",
+      "D": "-.."
+    }
+  },
+  {
+    "LevelNumber": 7,
+    "Title": "Contrast Pair: W & G",
+    "Description": "Learn the complementary three-element patterns with two dashes and one dot.",
+    "Characters": {
+      "W": ".--",
+      "G": "--."
+    }
+  },
+  {
+    "LevelNumber": 8,
+    "Title": "Structural Pair: H & B",
+    "Description": "Learn four-element characters beginning with three dots, and three dots preceded by a dash.",
+    "Characters": {
+      "H": "....",
+      "B": "-..."
+    }
+  },
+  {
+    "LevelNumber": 9,
+    "Title": "Structural Pair: F & L",
+    "Description": "Learn four-element characters that extend familiar alternating and dot-heavy patterns.",
+    "Characters": {
+      "F": "..-.",
+      "L": ".-.."
+    }
+  },
+  {
+    "LevelNumber": 10,
+    "Title": "Structural Pair: V & X",
+    "Description": "Learn four-element characters beginning with three dots or a dash followed by two dots.",
+    "Characters": {
+      "V": "...-",
+      "X": "-..-"
+    }
+  },
+  {
+    "LevelNumber": 11,
+    "Title": "Contrast Pair: J & Z",
+    "Description": "Learn the four-element characters with three repeated elements followed by their opposite.",
+    "Characters": {
+      "J": ".---",
+      "Z": "--.."
+    }
+  },
+  {
+    "LevelNumber": 12,
+    "Title": "Contrast Pair: Y & Q",
+    "Description": "Learn the four-element characters with three dashes or a dash-heavy alternating pattern.",
+    "Characters": {
+      "Y": "-.--",
+      "Q": "--.-"
+    }
+  },
+  {
+    "LevelNumber": 13,
+    "Title": "Remaining Pair: C & P",
+    "Description": "Learn the remaining common four-element alphabet characters.",
+    "Characters": {
+      "C": "-.-.",
+      "P": ".--."
+    }
+  },
+  {
+    "LevelNumber": 14,
+    "Title": "Final Letter: X, if needed",
+    "Description": "Reserved for adaptive practice or a final review of easily confused four-element characters.",
+    "Characters": {}
+  },
+  {
+    "LevelNumber": 15,
+    "Title": "Numbers: 5 & 0",
+    "Description": "Learn the two extremes of the five-element number family: five dots and five dashes.",
+    "Characters": {
+      "5": ".....",
+      "0": "-----"
+    }
+  },
+  {
+    "LevelNumber": 16,
+    "Title": "Numbers: 4 & 9",
+    "Description": "Extend the five-element number pattern by changing one element from the extremes.",
+    "Characters": {
+      "4": "....-",
+      "9": "----."
+    }
+  },
+  {
+    "LevelNumber": 17,
+    "Title": "Numbers: 3 & 8",
+    "Description": "Continue the symmetric five-element number family.",
+    "Characters": {
+      "3": "...--",
+      "8": "---.."
+    }
+  },
+  {
+    "LevelNumber": 18,
+    "Title": "Numbers: 2 & 7",
+    "Description": "Continue the five-element number family toward the center.",
+    "Characters": {
+      "2": "..---",
+      "7": "--..."
+    }
+  },
+  {
+    "LevelNumber": 19,
+    "Title": "Numbers: 1 & 6",
+    "Description": "Complete the main numeric family with the two remaining digits.",
+    "Characters": {
+      "1": ".----",
+      "6": "-...."
+    }
+  },
+  {
+    "LevelNumber": 20,
+    "Title": "Punctuation: Question & Period",
+    "Description": "Learn two high-value punctuation marks with strongly recognizable alternating patterns.",
+    "Characters": {
+      "?": "..--..",
+      ".": ".-.-.-"
+    }
+  },
+  {
+    "LevelNumber": 21,
+    "Title": "Punctuation: Comma & Colon",
+    "Description": "Learn two common punctuation characters built from grouped dots and dashes.",
+    "Characters": {
+      ",": "--..--",
+      ":": "---..."
+    }
+  },
+  {
+    "LevelNumber": 22,
+    "Title": "Punctuation: Slash & Hyphen",
+    "Description": "Learn two common characters used in dates, fractions, callsigns, ranges, and compound words.",
+    "Characters": {
+      "/": "-..-.",
+      "-": "-....-"
+    }
+  },
+  {
+    "LevelNumber": 23,
+    "Title": "Punctuation: Parentheses",
+    "Description": "Learn the Morse patterns used for parentheses.",
+    "Characters": {
+      "(": "-.--.",
+      ")": "-.--.-"
+    }
+  },
+  {
+    "LevelNumber": 24,
+    "Title": "Punctuation: Apostrophe & Quote",
+    "Description": "Learn punctuation marks built around dot-and-dash structures.",
+    "Characters": {
+      "'": ".----.",
+      "\"": ".-..-."
+    }
+  },
+  {
+    "LevelNumber": 25,
+    "Title": "Punctuation: Equals & Plus",
+    "Description": "Learn two compact mathematical and formatting symbols.",
+    "Characters": {
+      "=": "-...-",
+      "+": ".-.-."
+    }
+  },
+  {
+    "LevelNumber": 26,
+    "Title": "Punctuation: Ampersand & Underscore",
+    "Description": "Learn two less frequent but useful symbols.",
+    "Characters": {
+      "&": ".-...",
+      "_": "..--.-"
+    }
+  },
+  {
+    "LevelNumber": 27,
+    "Title": "Punctuation: Exclamation & At",
+    "Description": "Learn modern communication symbols used frequently in digital text.",
+    "Characters": {
+      "!": "-.-.--",
+      "@": ".--.-."
+    }
+  },
+  {
+    "LevelNumber": 28,
+    "Title": "Punctuation: Dollar Sign",
+    "Description": "Learn the Morse code for the dollar sign and other currency notation.",
+    "Characters": {
+      "$": "...-..-"
+    }
+  },
+  {
+    "LevelNumber": 29,
+    "Title": "Prosigns: AR & SK",
+    "Description": "Learn common procedural signals used to indicate the end of a message or contact.",
+    "Characters": {
+      "<AR>": ".-.-.",
+      "<SK>": "...-.-"
+    }
+  },
+  {
+    "LevelNumber": 30,
+    "Title": "Prosigns: BT & AS",
+    "Description": "Learn common procedural signals for a break and a wait.",
+    "Characters": {
+      "<BT>": "-...-",
+      "<AS>": ".-..."
+    }
+  },
+  {
+    "LevelNumber": 31,
+    "Title": "Prosigns: KN & SN",
+    "Description": "Learn procedural signals used for directed transmission and understanding.",
+    "Characters": {
+      "<KN>": "-.--.",
+      "<SN>": "...-."
+    }
+  },
+  {
+    "LevelNumber": 32,
+    "Title": "Emergency & Error Signals",
+    "Description": "Learn internationally recognized and widely used special signals.",
+    "Characters": {
+      "SOS": "...---...",
+      "<HH>": "........"
+    }
+  }
+]

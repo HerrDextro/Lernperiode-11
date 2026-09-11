@@ -5,15 +5,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Linq;
 using Plugin.Maui.Audio;
+using CommunityToolkit.Maui.Converters;
 
 namespace MorseMate_Mobile
 {
     public class MorseUtilities : INotifyPropertyChanged
     {
-        public MorseUtilities()
+        public MorseUtilities(Learn? learnPageObj) //LATER maybe pass practise in too to blink the key btn
         {
             InitAudioPlayer();
-
+            learnPagePropertyAccess = learnPageObj;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -48,6 +49,7 @@ namespace MorseMate_Mobile
         private int _userFrequency = 607; // Default frequency in Hz
         private static int _unitTimeMs = 130; // Default unit time in milliseconds
 
+        private Learn learnPagePropertyAccess;
         public int UnitTimeMs
         {
             get => _unitTimeMs;
@@ -98,7 +100,6 @@ namespace MorseMate_Mobile
                 }
             }
         }
-
         public string TranslationOutput
         {
             get => _translationOutput;
@@ -132,7 +133,6 @@ namespace MorseMate_Mobile
                 _translationDirection = TranslationDirection.TextToMorse;
             }
         }
-
         public void RewriteInputAfterOutputChange() //works but editors text does not update
         {
             if (_translationDirection == TranslationDirection.MorseToText && !_supressRecursion)
@@ -148,7 +148,6 @@ namespace MorseMate_Mobile
         }
 
         //redefining the translation rules: morse words will now be separated by a / and regular text spaces will appear as / between morse words
-
         public string TranslateMorseToText(string morseInput) 
         {
             _supressRecursion = true;
@@ -189,10 +188,9 @@ namespace MorseMate_Mobile
             }
             return morseBuilder.ToString().Trim();
         }
-
-        public async Task PlayMorseAudio(string textInput, CancellationToken cancellationToken)
+        public async Task PlayMorseAudio(string? textInput, string? morseInput, CancellationToken cancellationToken)
         {
-            string morse = TranslateTextToMorse(textInput);
+            string morse = !string.IsNullOrEmpty(morseInput) ? morseInput : TranslateTextToMorse(textInput);
             foreach (char c in morse)
             {
                 try
@@ -201,14 +199,18 @@ namespace MorseMate_Mobile
                     if (c == '.')
                     {
                         _audioPlayer.Play();
+                        learnPagePropertyAccess.BlinkColor = Colors.Green;
                         await Task.Delay(_unitTimeMs, cancellationToken);
                         _audioPlayer.Pause();
+                        learnPagePropertyAccess.BlinkColor = Colors.Gray;
                     }
                     else if (c == '-')
                     {
                         _audioPlayer.Play();
+                        learnPagePropertyAccess.BlinkColor = Colors.Green;
                         await Task.Delay(_unitTimeMs * 3, cancellationToken);
                         _audioPlayer.Pause();
+                        learnPagePropertyAccess.BlinkColor = Colors.Gray;
                     }
                     else if (c == ' ')
                     {
@@ -224,10 +226,53 @@ namespace MorseMate_Mobile
                 catch (TaskCanceledException)
                 {
                     _audioPlayer.Pause();
+                    learnPagePropertyAccess.BlinkColor = Colors.Gray;
                     throw; // Rethrow the exception to be handled by the caller
                 }
             }
         }
+        /*
+        public async void BlinkBox(string? textInput, string morseInput, CancellationToken cancellationToken)
+        {
+            string morse = !string.IsNullOrEmpty(morseInput) ? morseInput : TranslateTextToMorse(textInput);
+            foreach (char c in morse)
+            {
+                try
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    if (c == '.')
+                    {
+                        learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Blink;
+                        await Task.Delay(_unitTimeMs, cancellationToken);
+                        learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Normal;
+                    }
+                    else if (c == '-')
+                    {
+                        learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Blink;
+                        await Task.Delay(_unitTimeMs * 3, cancellationToken);
+                        learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Normal;
+                    }
+                    else if (c == ' ')
+                    {
+                        learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Blink;
+                        await Task.Delay(LetterSpaceMs, cancellationToken);
+                        learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Normal;
+                    }
+                    else if (c == '/')
+                    {
+                        await Task.Delay(WordSpaceMs, cancellationToken);
+                    }
+                    await Task.Delay(_unitTimeMs, cancellationToken); //bruh ofc this was needed
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+                catch (TaskCanceledException)
+                {
+                    learnPagePropertyAccess.BlinkBoxColor = Learn.ColorHex.Normal;
+                    throw; // Rethrow the exception to be handled by the caller
+                }
+            }
+
+        }*/
 
         enum TranslationDirection
         {
